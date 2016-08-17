@@ -1,3 +1,11 @@
 <div>
-    I am the custom directive, replace me with your directive html
+  <b>Aggregate Total:</b> {{aggregateNetTotal}}
+</div>
+<div
+  ng-repeat="employee in avgNetTotalPerGuestPerEmployee"
+  class="net-sales"
+  ng-style="{'width': '{{(employee.amount / $parent.avgSum)*100 | number: 0}}%'}">
+  <b>Employee:</b> {{employee.employee}}
+  <br>
+  <b>Net Sales/guest:</b> {{employee.amount | currency}}
 </div>

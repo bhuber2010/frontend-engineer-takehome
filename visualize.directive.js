@@ -3,18 +3,30 @@
         return {
             templateUrl: 'visualize.data.tpl.html',
             scope: {
-                //edit this             
+              salesTransactionData: "@"
             },
             restrict: 'E',
             controller: ['$scope', 'transformFactory', function($scope, transformFactory) {
-                console.log('directive working') 
-                // add your directive functionality here 
-                // you  should pass in the raw SalesTransactions from the controller in scope
-                // then call the transformFactory function or functions to transform the data
-                // then pass it to the directive template (which you should also edit)
+                console.log('directive working')
+
+                transformFactory.aggregateNetTotal(transformFactory.employeeTotalsPromise)
+                  .then(data => $scope.aggregateNetTotal = data)
+
+                transformFactory.avgNetTotalPerGuestPerEmployee(transformFactory.employeeTotalsPromise)
+                  .then(data => {
+                    $scope.avgNetTotalPerGuestPerEmployee = data
+                    $scope.avgSum = 0;
+
+                    for (var avg in data) {
+                      if (data.hasOwnProperty(avg)) {
+                        $scope.avgSum += data[avg].amount
+                      }
+                    }
+
+                  })
             }]
         }
     }
-    
+
     angular.module('takeHomeApp').directive('visualizeData', directive)
 })();

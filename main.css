@@ -1,0 +1,11 @@
+div {
+  margin: 5px;
+  padding: 5px;
+}
+
+div.net-sales {
+  background-color:rgba(38, 218, 22, 0.28);
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
